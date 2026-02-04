@@ -4,21 +4,37 @@
 <meta charset="UTF-8">
 <title>Lì xì Tết 🎉</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Pháo hoa -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 <style>
 body{
   margin:0;
-  font-family: Arial, sans-serif;
+  font-family: "Comic Sans MS", Arial, sans-serif;
   background: linear-gradient(135deg,#ffcc00,#ff6666);
   text-align:center;
   color:#b30000;
+  overflow-x:hidden;
 }
-h1{margin-top:40px}
+
+h1{
+  margin-top:40px;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+
 input{
   padding:12px;
   border-radius:10px;
   border:none;
   font-size:16px;
 }
+
 button{
   margin-top:20px;
   padding:12px 24px;
@@ -27,7 +43,11 @@ button{
   border:none;
   background:#e60000;
   color:white;
+  cursor:pointer;
+  transition: transform .2s;
 }
+button:hover{transform:scale(1.1)}
+
 .lixi{
   margin:40px auto;
   width:160px;
@@ -38,10 +58,27 @@ button{
   cursor:pointer;
   font-size:80px;
   line-height:220px;
+  animation: shake 1.2s infinite;
+  box-shadow:0 10px 20px rgba(0,0,0,.3);
 }
+
+@keyframes shake{
+  0%{transform:rotate(0deg)}
+  25%{transform:rotate(2deg)}
+  50%{transform:rotate(0deg)}
+  75%{transform:rotate(-2deg)}
+  100%{transform:rotate(0deg)}
+}
+
 .msg{
   font-size:20px;
   display:none;
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px)}
+  to{opacity:1; transform:translateY(0)}
 }
 </style>
 </head>
@@ -62,12 +99,13 @@ const wishes=[
  "Chúc bạn học giỏi, luôn vui vẻ ⭐",
  "Năm mới chăm ngoan, mạnh khỏe 😊",
  "Chúc bạn đạt nhiều điểm 10 📚",
- "Năm mới thật nhiều niềm vui 🎉"
+ "Năm mới thật nhiều niềm vui 🎉",
+ "Luôn tự tin và có nhiều bạn tốt 💖"
 ];
 
 function show(){
   const n=document.getElementById("name").value;
-  if(!n){alert("Nhập tên trước nhé 😄");return;}
+  if(!n){alert("Nhập tên trước nha 😄");return;}
   document.getElementById("lixi").style.display="block";
 }
 
@@ -77,6 +115,12 @@ function openLixi(){
   document.getElementById("msg").innerHTML=
    "🎊 Chúc mừng <b>"+n+"</b> 🎊<br>"+w;
   document.getElementById("msg").style.display="block";
+
+  confetti({
+    particleCount: 180,
+    spread: 90,
+    origin: { y: 0.6 }
+  });
 }
 </script>
 
